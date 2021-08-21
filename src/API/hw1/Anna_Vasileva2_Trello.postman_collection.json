@@ -1,0 +1,573 @@
+{
+	"info": {
+		"_postman_id": "2825f518-b99c-4395-b2b7-3f2bcf8e493b",
+		"name": "Trello",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "createBoard",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Statuse code is 200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Respons should contain id tag\", function(){\r",
+							"    pm.response.to.not.be.error;\r",
+							"    pm.response.to.have.jsonBody(\"id\");\r",
+							"    pm.response.to.not.have.jsonBody(\"error\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status to be not closed\", function(){\r",
+							"   const data = pm.response.json();\r",
+							"   pm.expect(data.closed).to.eql(false);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Name to equal boardName\", function(){\r",
+							"   const data = pm.response.json();\r",
+							"   pm.expect(data.name).to.eql(pm.collectionVariables.get(\"boardName\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Set board id for next tests\", function(){\r",
+							"    pm.collectionVariables.set(\"boardId\", pm.response.json().id);\r",
+							"    console.log(\"board id is: \" + pm.collectionVariables.get(\"boardId\"));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{TrelloAPIURL}}/1/boards/?name={{boardName}}",
+					"host": [
+						"{{TrelloAPIURL}}"
+					],
+					"path": [
+						"1",
+						"boards",
+						""
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "{{boardName}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createList",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Statuse code is 200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Respons should contain id tag\", function(){\r",
+							"    pm.response.to.not.be.error;\r",
+							"    pm.response.to.have.jsonBody(\"id\");\r",
+							"    pm.response.to.not.have.jsonBody(\"error\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status to be not closed\", function(){\r",
+							"   const data = pm.response.json();\r",
+							"   pm.expect(data.closed).to.eql(false);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Name to equal listName\", function(){\r",
+							"   const data = pm.response.json();\r",
+							"   pm.expect(data.name).to.eql(pm.collectionVariables.get(\"listName\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Created on correct board\", function () {\r",
+							"    var data = pm.response.json();\r",
+							"    pm.expect(data.idBoard).to.eql(pm.collectionVariables.get(\"boardId\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Set list id for next tests\", function(){\r",
+							"    pm.collectionVariables.set(\"listId\", pm.response.json().id);\r",
+							"    console.log(\"list id is: \" + pm.collectionVariables.get(\"listId\"));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{TrelloAPIURL}}/1/lists?name={{listName}}&idBoard={{boardId}}",
+					"host": [
+						"{{TrelloAPIURL}}"
+					],
+					"path": [
+						"1",
+						"lists"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "{{listName}}"
+						},
+						{
+							"key": "idBoard",
+							"value": "{{boardId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createCard",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Statuse code is 200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Respons should contain id tag\", function(){\r",
+							"    pm.response.to.not.be.error;\r",
+							"    pm.response.to.have.jsonBody(\"id\");\r",
+							"    pm.response.to.not.have.jsonBody(\"error\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status to be not closed\", function(){\r",
+							"   const data = pm.response.json();\r",
+							"   pm.expect(data.closed).to.eql(false);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Name to equal cardName\", function(){\r",
+							"   const data = pm.response.json();\r",
+							"   pm.expect(data.name).to.eql(pm.collectionVariables.get(\"cardName\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Created on correct list\", function () {\r",
+							"    const data = pm.response.json();\r",
+							"    pm.expect(data.idList).to.eql(pm.collectionVariables.get(\"listId\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Set card id for next tests\", function(){\r",
+							"    pm.collectionVariables.set(\"cardId\", pm.response.json().id);\r",
+							"    console.log(\"card id is: \" + pm.collectionVariables.get(\"cardId\"));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{TrelloAPIURL}}/1/cards?name={{cardName}}&idList={{listId}}",
+					"host": [
+						"{{TrelloAPIURL}}"
+					],
+					"path": [
+						"1",
+						"cards"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "{{cardName}}"
+						},
+						{
+							"key": "idList",
+							"value": "{{listId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "renameCard",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Statuse code is 200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status to be not closed\", function(){\r",
+							"   const data = pm.response.json();\r",
+							"   pm.expect(data.closed).to.eql(false);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Name to equal newCardName\", function(){\r",
+							"   const data = pm.response.json();\r",
+							"   pm.expect(data.name).to.eql(pm.collectionVariables.get(\"newCardName\"));\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{TrelloAPIURL}}/1/cards/{{cardId}}/?name={{newCardName}}",
+					"host": [
+						"{{TrelloAPIURL}}"
+					],
+					"path": [
+						"1",
+						"cards",
+						"{{cardId}}",
+						""
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "{{newCardName}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "renameNonExistentCard",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Statuse code is 400\", function(){\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{TrelloAPIURL}}/1/cards/{{NonExistentCardId}}/?name={{newCardName}}",
+					"host": [
+						"{{TrelloAPIURL}}"
+					],
+					"path": [
+						"1",
+						"cards",
+						"{{NonExistentCardId}}",
+						""
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "{{newCardName}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteCard",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Statuse code is 200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Answer does not contain cardId\", function(){\r",
+							"   const data = pm.response.json();\r",
+							"   pm.expect(data.id).to.not.eql(pm.collectionVariables.get(\"cardId\"));\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{TrelloAPIURL}}/1/cards/{{cardId}}",
+					"host": [
+						"{{TrelloAPIURL}}"
+					],
+					"path": [
+						"1",
+						"cards",
+						"{{cardId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteNonExistentCard",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Statuse code is 400\", function(){\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{TrelloAPIURL}}/1/cards/{{NonExistentCardId}}",
+					"host": [
+						"{{TrelloAPIURL}}"
+					],
+					"path": [
+						"1",
+						"cards",
+						"{{NonExistentCardId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "archiveList",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Statuse code is 200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Answer contain listId\", function(){\r",
+							"   const data = pm.response.json();\r",
+							"   pm.expect(data.id).to.eql(pm.collectionVariables.get(\"listId\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status to be closed\", function(){\r",
+							"   const data = pm.response.json();\r",
+							"   pm.expect(data.closed).to.eql(true);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{TrelloAPIURL}}/1/lists/{{listId}}/closed?value=true",
+					"host": [
+						"{{TrelloAPIURL}}"
+					],
+					"path": [
+						"1",
+						"lists",
+						"{{listId}}",
+						"closed"
+					],
+					"query": [
+						{
+							"key": "value",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteBoard",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Statuse code is 200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Answer does not contain boardId\", function(){\r",
+							"   const data = pm.response.json();\r",
+							"   pm.expect(data.id).to.not.eql(pm.collectionVariables.get(\"boardId\"));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{TrelloAPIURL}}/1/boards/{{boardId}}",
+					"host": [
+						"{{TrelloAPIURL}}"
+					],
+					"path": [
+						"1",
+						"boards",
+						"{{boardId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteNonExistentBoard",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Statuse code is 404\", function(){\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.collectionVariables.clear();\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{TrelloAPIURL}}/1/cards/{{cardId}}",
+					"host": [
+						"{{TrelloAPIURL}}"
+					],
+					"path": [
+						"1",
+						"cards",
+						"{{cardId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "oauth1",
+		"oauth1": [
+			{
+				"key": "consumerSecret",
+				"value": "1303ced507b7d144abbd799b7593cee22cb024c80d0e31a753c11ef66d56308c",
+				"type": "string"
+			},
+			{
+				"key": "tokenSecret",
+				"value": "8380036c3f0f4c82a99e669bd763719cb9df855bfd5991d6893694223f3223c4",
+				"type": "string"
+			},
+			{
+				"key": "token",
+				"value": "8380036c3f0f4c82a99e669bd763719cb9df855bfd5991d6893694223f3223c4",
+				"type": "string"
+			},
+			{
+				"key": "consumerKey",
+				"value": "05d638746f0f484a63b83713772fac99",
+				"type": "string"
+			},
+			{
+				"key": "signatureMethod",
+				"value": "HMAC-SHA1",
+				"type": "string"
+			},
+			{
+				"key": "version",
+				"value": "1.0",
+				"type": "string"
+			},
+			{
+				"key": "addParamsToHeader",
+				"value": false,
+				"type": "boolean"
+			},
+			{
+				"key": "addEmptyParamsToSign",
+				"value": false,
+				"type": "boolean"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.collectionVariables.set(\"TrelloAPIURL\", \"https://api.trello.com\");",
+					"pm.collectionVariables.set(\"boardName\", \"testBoard\");",
+					"pm.collectionVariables.set(\"listName\", \"testList\");",
+					"pm.collectionVariables.set(\"cardName\", \"testCard\");",
+					"pm.collectionVariables.set(\"newCardName\", \"testnewCard\");"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "TrelloAPIKey",
+			"value": "05d638746f0f484a63b83713772fac99",
+			"disabled": true
+		},
+		{
+			"key": "TrelloToken",
+			"value": "8380036c3f0f4c82a99e669bd763719cb9df855bfd5991d6893694223f3223c4",
+			"disabled": true
+		},
+		{
+			"key": "memberId",
+			"value": "autotestaccount",
+			"disabled": true
+		}
+	]
+}
