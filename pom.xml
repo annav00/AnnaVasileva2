@@ -56,7 +56,6 @@
                 <configuration>
                     <suiteXmlFiles>
                         <suiteXmlFile>
-                            ${maven-surefire-plugin.suiteXmlFile}/addSubtractTests.xml
                         </suiteXmlFile>
                     </suiteXmlFiles>
                 </configuration>
@@ -65,33 +64,6 @@
     </build>
 
     <profiles>
-        <profile>
-            <id>Selenium_hw1_addSubtract</id>
-            <properties>
-                <maven-surefire-plugin.suiteXmlFile>
-                    ${maven-surefire-plugin.suiteXmlFile}/addSubtractTests.xml
-                </maven-surefire-plugin.suiteXmlFile>
-            </properties>
-        </profile>
-
-        <profile>
-            <id>Selenium_hw1_multiplyDivision</id>
-            <properties>
-                <maven-surefire-plugin.suiteXmlFile>
-                    ${maven-surefire-plugin.suiteXmlFile}/multDivisionTests.xml
-                </maven-surefire-plugin.suiteXmlFile>
-            </properties>
-        </profile>
-
-        <profile>
-            <id>Selenium_hw1_all</id>
-            <properties>
-                <maven-surefire-plugin.suiteXmlFile>
-                    ${maven-surefire-plugin.suiteXmlFile}/allTests.xml
-                </maven-surefire-plugin.suiteXmlFile>
-            </properties>
-        </profile>
-
         <profile>
             <id>Selenium_hw2_all</id>
             <properties>
