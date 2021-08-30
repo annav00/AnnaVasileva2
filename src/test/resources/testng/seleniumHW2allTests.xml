@@ -2,7 +2,7 @@
 <suite name="allSuite">
     <test name="allTest">
         <packages>
-            <package name="hw2.*"/>
+            <package name="Selenium_hw2.*"/>
         </packages>
     </test>
 </suite>

@@ -1,4 +1,4 @@
-package hw2;
+package Selenium_hw2;
 
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.AfterClass;

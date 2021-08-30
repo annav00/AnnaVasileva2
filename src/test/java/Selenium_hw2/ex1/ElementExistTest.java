@@ -1,6 +1,6 @@
-package hw2.ex1;
+package Selenium_hw2.ex1;
 
-import hw2.BaseTestClass;
+import Selenium_hw2.BaseTestClass;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
@@ -29,7 +29,7 @@ public class ElementExistTest extends BaseTestClass {
             List.of("Home", "Contact form", "Service", "Metals & Colors", "Elements packs"));
 
     @Test
-    public void openPageTest() {
+    public void checkElementsTest() {
         //1. Open test site by URL
         webDriver.navigate().to(BASEURL);
 
