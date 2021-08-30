@@ -8,6 +8,9 @@ import org.testng.annotations.Test;
 import ru.yandex.qatools.htmlelements.element.CheckBox;
 import ru.yandex.qatools.htmlelements.element.Radio;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class DifferentElementsTest extends BaseTestClass {
 
@@ -85,26 +88,19 @@ public class DifferentElementsTest extends BaseTestClass {
         //9. Assert that for each checkbox there is an individual log row and value is corresponded to the status of checkbox.
         //   Assert that for radiobutton there is a logList row and value is corresponded to the status of radiobutton.
         //   Assert that for dropdown there is a logList row and value is corresponded to the selected value.
-        softAssertions
-                .assertThat(differentElementsPage.getLogPanel().findLogs(
-                properties.getString("radio.log") + properties.getList("radio").get(3).toString()))
-                .isNotNull();
+        List<String> expectedLog = new ArrayList<>(
+                List.of(
+                        properties.getString("checkbox.log") + properties.getList("checkbox").get(0).toString(),
+                        properties.getString("checkbox.log") + properties.getList("checkbox").get(2).toString(),
+                        properties.getString("radio.log") + properties.getList("radio").get(3).toString(),
+                        properties.getString("checkbox.log") + properties.getList("checkbox").get(2).toString()
+                ));
 
-        softAssertions
-                .assertThat(differentElementsPage.getLogPanel().findLogs(
-                        properties.getString("checkbox.log") + properties.getList("checkbox").get(0).toString()))
-                .isNotNull();
-
-        softAssertions
-                .assertThat(differentElementsPage.getLogPanel().findLogs(
-                        properties.getString("checkbox.log") + properties.getList("checkbox").get(2).toString()))
-                .isNotNull();
-
-        softAssertions
-                .assertThat(differentElementsPage.getLogPanel().findLogs(
-                        properties.getString("dropdown.log") + properties.getList("dropdown").get(3).toString()))
-                .isNotNull();
-
+        expectedLog.forEach(expLog ->
+                softAssertions
+                        .assertThat(differentElementsPage.getLogPanel().findLogs(expLog))
+                        .isNotNull()
+        );
 
         //AssertAll
         softAssertions.assertAll();
