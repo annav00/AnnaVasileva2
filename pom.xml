@@ -4,52 +4,55 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.example</groupId>
+    <groupId>com.epam.tc</groupId>
     <artifactId>AnnaVasileva2</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-<!--    <properties>-->
-<!--        <maven.compiler.source>16</maven.compiler.source>-->
-<!--        <maven.compiler.target>16</maven.compiler.target>-->
-<!--    </properties>-->
+    <properties>
+        <maven.compiler.source>15</maven.compiler.source>
+        <maven.compiler.target>15</maven.compiler.target>
+        <rest-assured.version>4.4.0</rest-assured.version>
+        <hamcrest-core.version>2.2</hamcrest-core.version>
+        <testng.version>7.4.0</testng.version>
+        <commons-lang.version>2.6</commons-lang.version>
+        <gson.version>2.8.8</gson.version>
+        <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
+        <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
+        <versions-maven-plugin.version>2.8.1</versions-maven-plugin.version>
+        <maven-surefire-plugin.suiteXmlFile>testng</maven-surefire-plugin.suiteXmlFile>
+    </properties>
 
     <dependencies>
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
-            <version>4.4.0</version>
+            <version>${rest-assured.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-core</artifactId>
-            <version>2.2</version>
+            <version>${hamcrest-core.version}</version>
         </dependency>
-
-        <!--        <dependency>-->
-        <!--            <groupId>org.projectlombok</groupId>-->
-        <!--            <artifactId>lombok</artifactId>-->
-        <!--            <version>1.18.4</version>-->
-        <!--        </dependency>-->
 
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>7.4.0</version>
+            <version>${testng.version}</version>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
-            <version>2.6</version>
+            <version>${commons-lang.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
-            <version>2.8.8</version>
+            <version>${gson.version}</version>
         </dependency>
-
     </dependencies>
 
     <build>
@@ -59,8 +62,8 @@
                 <artifactId>jsonschema2pojo-maven-plugin</artifactId>
                 <version>1.0.2</version>
                 <configuration>
-                    <sourceDirectory>${basedir}/src/API/API_hw2/main/resources/schemes</sourceDirectory>
-                    <outputDirectory>${basedir}/src/API/API_hw2/main/java</outputDirectory>
+                    <sourceDirectory>${basedir}/src/main/resources/schemes</sourceDirectory>
+                    <outputDirectory>src/main/java</outputDirectory>
                     <targetPackage>beans</targetPackage>
                     <addCompileSourceRoot>true</addCompileSourceRoot>
                     <sourceType>json</sourceType>
@@ -75,44 +78,31 @@
                 </executions>
             </plugin>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
-                <configuration>
-                    <release>11</release>
-                </configuration>
-            </plugin>
-
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-compiler-plugin</artifactId>-->
+<!--                <version>${maven-compiler-plugin.version}</version>-->
+<!--                <configuration>-->
+<!--                    <release>11</release>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M3</version>
+                <version>${maven-surefire-plugin.version}</version>
                 <configuration>
                     <suiteXmlFiles>
-                        <suiteXmlFile>src\test\resources\testng.xml</suiteXmlFile>
+                        <suiteXmlFile>
+                        </suiteXmlFile>
                     </suiteXmlFiles>
-                    <argLine>
-                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/1.8.12/aspectjweaver-1.8.12.jar"
-                    </argLine>
-                    <systemPropertyVariables>
-                        <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
-                    </systemPropertyVariables>
                 </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.aspectj</groupId>
-                        <artifactId>aspectjweaver</artifactId>
-                        <version>1.8.12</version>
-                    </dependency>
-                </dependencies>
             </plugin>
 
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>versions-maven-plugin</artifactId>
-                <version>2.8.1</version>
+                <version>${versions-maven-plugin.version}</version>
                 <configuration>
                     <generateBackupPoms>false</generateBackupPoms>
                 </configuration>
@@ -120,5 +110,16 @@
 
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>API_hw2</id>
+            <properties>
+                <maven-surefire-plugin.suiteXmlFile>
+                    ${maven-surefire-plugin.suiteXmlFile}/APIHW2Tests.xml
+                </maven-surefire-plugin.suiteXmlFile>
+            </properties>
+        </profile>
+    </profiles>
 
 </project>

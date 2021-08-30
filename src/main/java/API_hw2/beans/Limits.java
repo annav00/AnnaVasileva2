@@ -1,5 +1,5 @@
 
-package beans;
+package API_hw2.beans;
 
 
 public class Limits {

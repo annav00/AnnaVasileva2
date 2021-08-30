@@ -1,5 +1,5 @@
 
-package beans;
+package API_hw2.beans;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

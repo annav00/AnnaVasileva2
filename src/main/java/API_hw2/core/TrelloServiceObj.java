@@ -1,9 +1,12 @@
-package core;
+package API_hw2.core;
 
-import beans.*;
+import API_hw2.beans.TrelloBoard;
+import API_hw2.constants.BoardConstant;
+import API_hw2.constants.ResponseStatus;
+import API_hw2.constants.URLConstant;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import constants.*;
+import API_hw2.constants.*;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
@@ -88,7 +91,7 @@ public class TrelloServiceObj {
                 .build();
     }
 
-    public  TrelloBoard boardRequest(int status) {
+    public TrelloBoard boardRequest(int status) {
         Response response = RestAssured
                 .with()
                 .spec(baseRequestConfiguration())

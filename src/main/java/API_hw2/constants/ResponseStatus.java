@@ -1,4 +1,4 @@
-package constants;
+package API_hw2.constants;
 
 public class ResponseStatus {
 

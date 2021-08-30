@@ -1,7 +1,9 @@
-import constants.Length;
-import constants.ResponseStatus;
-import core.TrelloServiceObj;
-import beans.TrelloBoard;
+package API_hw2;
+
+import API_hw2.constants.Length;
+import API_hw2.constants.ResponseStatus;
+import API_hw2.core.TrelloServiceObj;
+import API_hw2.beans.TrelloBoard;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.annotations.Test;
 

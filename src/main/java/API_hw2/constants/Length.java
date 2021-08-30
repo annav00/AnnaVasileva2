@@ -1,4 +1,4 @@
-package constants;
+package API_hw2.constants;
 
 public class Length {
     public static final int ID = 24;

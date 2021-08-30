@@ -1,9 +1,9 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
-<suite name="TrelloSuite" verbose="1" >
+<suite name="TrelloSuite">
     <test name="TrelloTest">
         <classes>
-            <class name="TrelloApiTest"/>
+            <class name="API_hw2.TrelloApiTest"/>
         </classes>
     </test>
 </suite>
