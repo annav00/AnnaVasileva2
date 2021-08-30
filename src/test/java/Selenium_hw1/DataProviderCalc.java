@@ -1,4 +1,4 @@
-package hw1;
+package Selenium_hw1;
 
 import org.testng.annotations.DataProvider;
 

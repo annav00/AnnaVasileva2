@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="multiplyDivisionSuite">
+    <test name="multiplyDivisionTest">
+        <classes>
+            <class name="Selenium_hw1.MultiplyTests"/>
+            <class name="Selenium_hw1.DivisionTests"/>
+        </classes>
+    </test>
+</suite>

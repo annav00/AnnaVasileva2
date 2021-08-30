@@ -2,7 +2,7 @@
 <suite name="allCalculatorSuite">
     <test name="allCalculator">
         <packages>
-            <package name="hw1.*"/>
+            <package name="Selenium_hw1.*"/>
         </packages>
     </test>
 </suite>

@@ -1,8 +1,7 @@
-package hw1;
+package Selenium_hw1;
 
 import com.epam.tat.module4.Calculator;
 import org.assertj.core.api.Assertions;
-import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -20,12 +19,12 @@ public class SubtractTests {
         calculator = null;
     }
 
-    @Test(dataProvider = "longData", dataProviderClass = DataProviderCalc.class, groups = "addSubtract")
+    @Test(dataProvider = "longData", dataProviderClass = DataProviderCalc.class)
     public void addLongTest(long a, long b) {
         Assertions.assertThat(calculator.sub(a,b)).as("Error in subtract long").isEqualTo(a - b);
     }
 
-    @Test(dataProvider = "doubleData", dataProviderClass = DataProviderCalc.class, groups = "addSubtract")
+    @Test(dataProvider = "doubleData", dataProviderClass = DataProviderCalc.class)
     public void addDoubleTest(double a, double b) {
         Assertions.assertThat(calculator.sub(a,b)).as("Error in subtract double").isEqualTo(a - b);
     }
