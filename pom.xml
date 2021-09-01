@@ -20,6 +20,7 @@
         <webdrivermanager.version>4.4.3</webdrivermanager.version>
         <selenium-java.version>3.141.59</selenium-java.version>
         <htmlelements-java.version>1.20.0</htmlelements-java.version>
+        <calculator.version>1.0</calculator.version>
     </properties>
 
 
@@ -58,6 +59,11 @@
             <artifactId>htmlelements-java</artifactId>
             <version>${htmlelements-java.version}</version>
         </dependency>
+        <dependency>
+            <groupId>commons-configuration</groupId>
+            <artifactId>commons-configuration</artifactId>
+            <version>1.10</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -68,8 +74,6 @@
                 <version>${maven-surefire-plugin.version}</version>
                 <configuration>
                     <suiteXmlFiles>
-                        <suiteXmlFile>
-                        </suiteXmlFile>
                         ${maven-surefire-plugin.suiteXmlFile}/seleniumHW1addSubtractTests.xml
                     </suiteXmlFiles>
                 </configuration>
@@ -110,6 +114,15 @@
             <properties>
                 <maven-surefire-plugin.suiteXmlFile>
                     ${maven-surefire-plugin.suiteXmlFile}/seleniumHW2allTests.xml
+                </maven-surefire-plugin.suiteXmlFile>
+            </properties>
+        </profile>
+      
+        <profile>
+            <id>Selenium_hw3_all</id>
+            <properties>
+                <maven-surefire-plugin.suiteXmlFile>
+                    ${maven-surefire-plugin.suiteXmlFile}/seleniumHW3allTests.xml
                 </maven-surefire-plugin.suiteXmlFile>
             </properties>
         </profile>
