@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="addSubtractSuite">
+    <test name="addSubtractTest">
+        <classes>
+            <class name="Selenium_hw1.AddTests"/>
+            <class name="Selenium_hw1.SubtractTests"/>
+        </classes>
+    </test>
+</suite>
