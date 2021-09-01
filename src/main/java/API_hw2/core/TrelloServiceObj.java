@@ -19,6 +19,7 @@ import org.apache.http.HttpStatus;
 
 import java.net.URI;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -95,7 +96,7 @@ public class TrelloServiceObj {
         Response response = RestAssured
                 .with()
                 .spec(baseRequestConfiguration())
-                .contentType(URLENC.withCharset(Charset.defaultCharset()))
+                .contentType(URLENC.withCharset(StandardCharsets.UTF_8))
                 .log().all()
                 .queryParams(parameters)
                 .request(requestMethod, URL)
