@@ -9,6 +9,7 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
+
         <maven.compiler.source>15</maven.compiler.source>
         <maven.compiler.target>15</maven.compiler.target>
         <rest-assured.version>4.4.0</rest-assured.version>
@@ -23,13 +24,20 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <commons-configuration.version>1.10</commons-configuration.version>
+        <assertj-core.version>3.20.2</assertj-core.version>
+        <webdrivermanager.version>4.4.3</webdrivermanager.version>
+        <selenium-java.version>3.141.59</selenium-java.version>
+        <htmlelements-java.version>1.20.0</htmlelements-java.version>
+        <calculator.version>1.0</calculator.version>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>io.rest-assured</groupId>
-            <artifactId>rest-assured</artifactId>
-            <version>${rest-assured.version}</version>
+            <groupId>com.epam.tat.module4</groupId>
+            <artifactId>calculator</artifactId>
+            <version>${calculator.version}</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/test/resources/calculator-1.0.jar</systemPath>
         </dependency>
 
         <dependency>
@@ -38,11 +46,48 @@
             <version>${testng.version}</version>
             <scope>test</scope>
         </dependency>
+     
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>${rest-assured.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>${gson.version}</version>
+        </dependency>
+      
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${assertj-core.version}</version>
+            <scope>test</scope>
+        </dependency>
+  
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>${webdrivermanager.version}</version>
+        </dependency>
+  
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${selenium-java.version}</version>
+        </dependency>
+  
+        <dependency>
+            <groupId>ru.yandex.qatools.htmlelements</groupId>
+            <artifactId>htmlelements-java</artifactId>
+            <version>${htmlelements-java.version}</version>
+        </dependency>
+  
+        <dependency>
+            <groupId>commons-configuration</groupId>
+            <artifactId>commons-configuration</artifactId>
+            <version>1.10</version>
         </dependency>
     </dependencies>
 
@@ -75,6 +120,7 @@
                 <version>${maven-surefire-plugin.version}</version>
                 <configuration>
                     <suiteXmlFiles>
+                        ${maven-surefire-plugin.suiteXmlFile}/seleniumHW1addSubtractTests.xml
                     </suiteXmlFiles>
                 </configuration>
             </plugin>
@@ -82,6 +128,51 @@
     </build>
 
     <profiles>
+        <profile>
+            <id>Selenium_hw1_addSubtract</id>
+            <properties>
+                <maven-surefire-plugin.suiteXmlFile>
+                    ${maven-surefire-plugin.suiteXmlFile}/seleniumHW1addSubtractTests.xml
+                </maven-surefire-plugin.suiteXmlFile>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>Selenium_hw1_multiplyDivisiont</id>
+            <properties>
+                <maven-surefire-plugin.suiteXmlFile>
+                    ${maven-surefire-plugin.suiteXmlFile}/seleniumHW1multDivisionTests.xml
+                </maven-surefire-plugin.suiteXmlFile>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>Selenium_hw1_all</id>
+            <properties>
+                <maven-surefire-plugin.suiteXmlFile>
+                    ${maven-surefire-plugin.suiteXmlFile}/seleniumHW1allTests.xml
+                </maven-surefire-plugin.suiteXmlFile>
+            </properties>
+        </profile>
+      
+        <profile>
+            <id>Selenium_hw2_all</id>
+            <properties>
+                <maven-surefire-plugin.suiteXmlFile>
+                    ${maven-surefire-plugin.suiteXmlFile}/seleniumHW2allTests.xml
+                </maven-surefire-plugin.suiteXmlFile>
+            </properties>
+        </profile>
+      
+        <profile>
+            <id>Selenium_hw3_all</id>
+            <properties>
+                <maven-surefire-plugin.suiteXmlFile>
+                    ${maven-surefire-plugin.suiteXmlFile}/seleniumHW3allTests.xml
+                </maven-surefire-plugin.suiteXmlFile>
+            </properties>
+        </profile>
+      
         <profile>
             <id>API_hw2</id>
             <properties>
@@ -91,5 +182,4 @@
             </properties>
         </profile>
     </profiles>
-
 </project>
