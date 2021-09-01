@@ -10,10 +10,11 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>16</maven.compiler.source>
-        <maven.compiler.target>16</maven.compiler.target>
+        <maven.compiler.source>15</maven.compiler.source>
+        <maven.compiler.target>15</maven.compiler.target>
         <testng.version>7.4.0</testng.version>
-        <assertj-core.version>3.17.0</assertj-core.version>
+        <assertj-core.version>3.20.2</assertj-core.version>
+        <calculator.version>1.0</calculator.version>
         <maven-surefire-plugin.suiteXmlFile>testng</maven-surefire-plugin.suiteXmlFile>
         <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
         <webdrivermanager.version>4.4.3</webdrivermanager.version>
@@ -24,6 +25,13 @@
 
 
     <dependencies>
+        <dependency>
+            <groupId>com.epam.tat.module4</groupId>
+            <artifactId>calculator</artifactId>
+            <version>${calculator.version}</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/test/resources/calculator-1.0.jar</systemPath>
+        </dependency>
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
@@ -66,8 +74,7 @@
                 <version>${maven-surefire-plugin.version}</version>
                 <configuration>
                     <suiteXmlFiles>
-                        <suiteXmlFile>
-                        </suiteXmlFile>
+                        ${maven-surefire-plugin.suiteXmlFile}/seleniumHW1addSubtractTests.xml
                     </suiteXmlFiles>
                 </configuration>
             </plugin>
@@ -75,6 +82,42 @@
     </build>
 
     <profiles>
+        <profile>
+            <id>Selenium_hw1_addSubtract</id>
+            <properties>
+                <maven-surefire-plugin.suiteXmlFile>
+                    ${maven-surefire-plugin.suiteXmlFile}/seleniumHW1addSubtractTests.xml
+                </maven-surefire-plugin.suiteXmlFile>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>Selenium_hw1_multiplyDivisiont</id>
+            <properties>
+                <maven-surefire-plugin.suiteXmlFile>
+                    ${maven-surefire-plugin.suiteXmlFile}/seleniumHW1multDivisionTests.xml
+                </maven-surefire-plugin.suiteXmlFile>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>Selenium_hw1_all</id>
+            <properties>
+                <maven-surefire-plugin.suiteXmlFile>
+                    ${maven-surefire-plugin.suiteXmlFile}/seleniumHW1allTests.xml
+                </maven-surefire-plugin.suiteXmlFile>
+            </properties>
+        </profile>
+      
+        <profile>
+            <id>Selenium_hw2_all</id>
+            <properties>
+                <maven-surefire-plugin.suiteXmlFile>
+                    ${maven-surefire-plugin.suiteXmlFile}/seleniumHW2allTests.xml
+                </maven-surefire-plugin.suiteXmlFile>
+            </properties>
+        </profile>
+      
         <profile>
             <id>Selenium_hw3_all</id>
             <properties>
@@ -84,5 +127,4 @@
             </properties>
         </profile>
     </profiles>
-
 </project>
