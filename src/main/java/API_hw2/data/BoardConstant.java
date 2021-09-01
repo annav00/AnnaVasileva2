@@ -1,4 +1,4 @@
-package API_hw2.constants;
+package API_hw2.data;
 
 public enum BoardConstant {
 
@@ -7,7 +7,7 @@ public enum BoardConstant {
     CLOSED("closed"),
     DESC("desc");
 
-    String constantName;
+    private final String constantName;
 
     BoardConstant(String constantName) {
         this.constantName = constantName;

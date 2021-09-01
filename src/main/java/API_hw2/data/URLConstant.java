@@ -1,19 +1,17 @@
-package API_hw2.constants;
+package API_hw2.data;
 
 public enum URLConstant {
 
     BASE("https://api.trello.com/1"),
-    BOARDS("/boards/"),
-    LISTS("/lists/"),
-    CARDS("/cards/");
+    BOARDS("/boards/");
 
-    String URL;
+    private final String URL;
 
     URLConstant(String constantName) {
         this.URL = constantName;
     }
 
-    public String get() {
+    public String getURLConstant() {
         return URL;
     }
 }

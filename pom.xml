@@ -22,6 +22,7 @@
         <maven-surefire-plugin.suiteXmlFile>testng</maven-surefire-plugin.suiteXmlFile>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <commons-configuration.version>1.10</commons-configuration.version>
     </properties>
 
     <dependencies>
@@ -55,6 +56,12 @@
             <artifactId>gson</artifactId>
             <version>${gson.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>commons-configuration</groupId>
+            <artifactId>commons-configuration</artifactId>
+            <version>${commons-configuration.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -80,15 +87,6 @@
                 </executions>
             </plugin>
 
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-compiler-plugin</artifactId>-->
-<!--                <version>${maven-compiler-plugin.version}</version>-->
-<!--                <configuration>-->
-<!--                    <release>11</release>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -107,7 +105,6 @@
                     <generateBackupPoms>false</generateBackupPoms>
                 </configuration>
             </plugin>
-
         </plugins>
     </build>
 

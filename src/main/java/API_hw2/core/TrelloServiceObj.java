@@ -1,41 +1,54 @@
 package API_hw2.core;
 
 import API_hw2.beans.TrelloBoard;
-import API_hw2.constants.BoardConstant;
-import API_hw2.constants.ResponseStatus;
-import API_hw2.constants.URLConstant;
+import API_hw2.data.BoardConstant;
+import API_hw2.data.ResponseStatus;
+import API_hw2.data.URLConstant;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import API_hw2.constants.*;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.http.ContentType;
+import static io.restassured.http.ContentType.*;
 import io.restassured.http.Method;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 import org.apache.http.HttpStatus;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URI;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
-import static io.restassured.http.ContentType.*;
+import java.util.Properties;
+
 import static org.hamcrest.Matchers.*;
 
 public class TrelloServiceObj {
 
     public static String URL;
-    private Method requestMethod;
+    private final Method requestMethod;
 
-    private Map<String, String> parameters;
+    private final Map<String, String> parameters;
 
-    private TrelloServiceObj(Map<String, String> parameters, Method method) {
+    private final String pathToProperties = "src/main/resources/API_hw2/credentials.properties";
+    private static Properties properties = new Properties();
+
+    private TrelloServiceObj (Map<String, String> parameters, Method method) {
         this.parameters = parameters;
         this.requestMethod = method;
+
+        try {
+            FileInputStream file = new FileInputStream(pathToProperties);
+            properties.load(file);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     public static ApiRequestBuilder requestBuilder() {
@@ -43,7 +56,7 @@ public class TrelloServiceObj {
     }
 
     public static class ApiRequestBuilder {
-        private Map<String, String> parameters = new HashMap<>();
+        private final Map<String, String> parameters = new HashMap<>();
         private Method requestMethod = Method.GET;
 
         public ApiRequestBuilder setMethod (Method method){
@@ -51,23 +64,8 @@ public class TrelloServiceObj {
             return this;
         }
 
-        public ApiRequestBuilder id(String id) {
-            parameters.put(BoardConstant.ID.getConstantName(), id);
-            return this;
-        }
-
         public ApiRequestBuilder name(String name) {
             parameters.put(BoardConstant.NAME.getConstantName(), name);
-            return this;
-        }
-
-        public ApiRequestBuilder closed(Boolean closingState) {
-            parameters.put(BoardConstant.CLOSED.getConstantName(), closingState.toString());
-            return this;
-        }
-
-        public ApiRequestBuilder desc(String desc) {
-            parameters.put(BoardConstant.DESC.getConstantName(), desc);
             return this;
         }
 
@@ -83,12 +81,10 @@ public class TrelloServiceObj {
 
     private static RequestSpecification baseRequestConfiguration() {
         return new RequestSpecBuilder()
-                //.setAccept(ContentType.JSON)
-                //.addQueryParam("requestNumber", ++requestNumber)
                 .setRelaxedHTTPSValidation()
-                .setBaseUri(URI.create(URLConstant.BASE.get()))
-                .addParam("key","05d638746f0f484a63b83713772fac99")
-                .addParam("token","8380036c3f0f4c82a99e669bd763719cb9df855bfd5991d6893694223f3223c4")
+                .setBaseUri(URI.create(URLConstant.BASE.getURLConstant()))
+                .addParam("key", properties.getProperty("key"))
+                .addParam("token",properties.getProperty("token"))
                 .build();
     }
 
@@ -103,22 +99,16 @@ public class TrelloServiceObj {
                 .prettyPeek();
 
         switch (status) {
-            case(ResponseStatus.GOOD_RESPONSE):
-                response.then().assertThat().spec(TrelloServiceObj.goodResponseSpecification());
-                break;
-            case(ResponseStatus.BAD_RESPONSE):
-                response.then().assertThat().spec(TrelloServiceObj.badResponseSpecification());
-                break;
-            case(ResponseStatus.NOT_FOUND_RESPONSE):
-                response.then().assertThat().spec(TrelloServiceObj.notFoundResponse());
-                break;
+            case (ResponseStatus.GOOD_RESPONSE) -> response.then().assertThat().spec(TrelloServiceObj.goodResponseSpecification());
+            case (ResponseStatus.BAD_RESPONSE) -> response.then().assertThat().spec(TrelloServiceObj.badResponseSpecification());
+            case (ResponseStatus.NOT_FOUND_RESPONSE) -> response.then().assertThat().spec(TrelloServiceObj.notFoundResponse());
         }
 
         return formBoardFromResponse(response);
     }
 
     public static TrelloBoard createBoard(String name, int status) {
-        URL = URLConstant.BASE.get() + URLConstant.BOARDS.get();
+        URL = URLConstant.BASE.getURLConstant() + URLConstant.BOARDS.getURLConstant();
         return requestBuilder()
                 .setMethod(Method.POST)
                 .name(name)
@@ -126,16 +116,16 @@ public class TrelloServiceObj {
                 .boardRequest(status);
     }
 
-    public static TrelloBoard deleteBoard(String id, int status) {
-        URL = URLConstant.BASE.get() + URLConstant.BOARDS.get() + id;
-        return requestBuilder()
+    public static void deleteBoard(String id, int status) {
+        URL = URLConstant.BASE.getURLConstant() + URLConstant.BOARDS.getURLConstant() + id;
+        requestBuilder()
                 .setMethod(Method.DELETE)
                 .buildRequest()
                 .boardRequest(status);
     }
 
     public static TrelloBoard getBoard(String id, int status) {
-        URL = URLConstant.BASE.get() + URLConstant.BOARDS.get() + id;
+        URL = URLConstant.BASE.getURLConstant() + URLConstant.BOARDS.getURLConstant() + id;
         return requestBuilder()
                 .setMethod(Method.GET)
                 .buildRequest()
@@ -143,7 +133,7 @@ public class TrelloServiceObj {
     }
 
     public static TrelloBoard updateBoard(String id, String paramName, String param, int status) {
-        URL = URLConstant.BASE.get() + URLConstant.BOARDS.get() + id;
+        URL = URLConstant.BASE.getURLConstant() + URLConstant.BOARDS.getURLConstant() + id;
         return requestBuilder()
                 .setMethod(Method.PUT)
                 .customParameter(paramName, param)

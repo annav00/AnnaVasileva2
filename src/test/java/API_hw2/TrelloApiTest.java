@@ -1,11 +1,11 @@
 package API_hw2;
 
-import API_hw2.constants.Length;
-import API_hw2.constants.ResponseStatus;
+import API_hw2.data.Length;
+import API_hw2.data.ResponseStatus;
 import API_hw2.core.TrelloServiceObj;
 import API_hw2.beans.TrelloBoard;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -13,13 +13,22 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.nullValue;
 
 public class TrelloApiTest {
-    @Test
-    public void createNewBoardsTest() {
-        TrelloBoard board = TrelloServiceObj.createBoard(RandomStringUtils.randomAlphabetic(Length.NAME), ResponseStatus.GOOD_RESPONSE);
+    TrelloBoard board;
 
+    @BeforeMethod(onlyForGroups = {"withBeforeMethod"})
+    public void createBoard(){
+        board = TrelloServiceObj.createBoard(RandomStringUtils.randomAlphabetic(Length.NAME), ResponseStatus.GOOD_RESPONSE);
+    }
+
+    @AfterMethod(onlyForGroups = {"withAfterMethod"})
+    public void deleteBoard(){
+        TrelloServiceObj.deleteBoard(board.getId(), ResponseStatus.GOOD_RESPONSE);
+    }
+
+    @Test(groups = { "withBeforeMethod","withAfterMethod"})
+    public void createNewBoardsTest() {
         assertThat(board.getClosed(), equalTo(false));
         assertThat(board, is(not(nullValue())));
-        TrelloServiceObj.deleteBoard(board.getId(), ResponseStatus.GOOD_RESPONSE);
     }
 
     @Test
@@ -33,21 +42,16 @@ public class TrelloApiTest {
         TrelloServiceObj.deleteBoard(board2.getId(), ResponseStatus.GOOD_RESPONSE);
     }
 
-    @Test
+    @Test(groups = { "withBeforeMethod"})
     public void deleteBoardTest() {
-        TrelloBoard board = TrelloServiceObj.createBoard(RandomStringUtils.randomAlphabetic(Length.NAME), ResponseStatus.GOOD_RESPONSE);
-
         TrelloServiceObj.deleteBoard(board.getId(), ResponseStatus.GOOD_RESPONSE);
         TrelloServiceObj.getBoard(board.getId(), ResponseStatus.NOT_FOUND_RESPONSE);
     }
 
-    @Test
+    @Test(groups = { "withBeforeMethod","withAfterMethod"})
     public void closeBoardTest() {
-        TrelloBoard board = TrelloServiceObj.createBoard(RandomStringUtils.randomAlphabetic(Length.NAME), ResponseStatus.GOOD_RESPONSE);
-        board = TrelloServiceObj.updateBoard(board.getId(), "closed", "true", ResponseStatus.GOOD_RESPONSE);
-
-        assertThat(board.getClosed(), equalTo(true));
-        TrelloServiceObj.deleteBoard(board.getId(), ResponseStatus.GOOD_RESPONSE);
+       board = TrelloServiceObj.updateBoard(board.getId(), "closed", "true", ResponseStatus.GOOD_RESPONSE);
+       assertThat(board.getClosed(), equalTo(true));
     }
 
     @Test
@@ -58,7 +62,7 @@ public class TrelloApiTest {
 
     @Test
     public void deleteNonExistentBoardTest() {
-        TrelloBoard board = TrelloServiceObj.deleteBoard(RandomStringUtils.randomAlphanumeric(Length.ID), ResponseStatus.BAD_RESPONSE);
+        TrelloServiceObj.deleteBoard(RandomStringUtils.randomAlphanumeric(Length.ID), ResponseStatus.BAD_RESPONSE);
     }
 
     @Test
@@ -67,15 +71,10 @@ public class TrelloApiTest {
         assertThat(board, is(nullValue()));
     }
 
-    @Test
+    @Test(groups = { "withBeforeMethod","withAfterMethod"})
     public void updateDescription() {
         String boardDesc = RandomStringUtils.randomAlphabetic(Length.NAME);
-        TrelloBoard board = TrelloServiceObj.createBoard(RandomStringUtils.randomAlphabetic(Length.NAME), ResponseStatus.GOOD_RESPONSE);
-
         board = TrelloServiceObj.updateBoard(board.getId(), "desc", boardDesc, ResponseStatus.GOOD_RESPONSE);
-
         assertThat(board.getDesc(), containsString(boardDesc));
-
-        TrelloServiceObj.deleteBoard(board.getId(), ResponseStatus.GOOD_RESPONSE);
     }
 }
