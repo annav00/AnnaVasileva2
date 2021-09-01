@@ -11,6 +11,7 @@ import ru.yandex.qatools.htmlelements.element.Radio;
 import java.util.ArrayList;
 import java.util.List;
 
+import static Selenium_hw3.DataClass.*;
 
 public class DifferentElementsTest extends BaseTestClass {
 
@@ -23,7 +24,7 @@ public class DifferentElementsTest extends BaseTestClass {
         homePage.getTitle();
         softAssertions
                 .assertThat(homePage.getTitle())
-                .isEqualTo(properties.getString("title"));
+                .isEqualTo(HOME_PAGE_TITLE);
 
         //3. Perform login
         homePage.getHeader().signIn(
@@ -36,7 +37,7 @@ public class DifferentElementsTest extends BaseTestClass {
                 .isTrue();
         softAssertions
                 .assertThat(homePage.getHeader().getName())
-                .isEqualTo(properties.getString("name"));
+                .isEqualTo(EXPECTED_USER_NAME);
 
 
         //5. Open through the header menu Service -> Different Elements Page
@@ -46,8 +47,8 @@ public class DifferentElementsTest extends BaseTestClass {
                 .isEqualTo(properties.getString("diffURL"));
 
         //6. Select checkboxes
-        CheckBox checkBoxWater =  differentElementsPage.getDifferentElements().getCheckBox(properties.getList("checkbox").get(0).toString());
-        CheckBox checkBoxWind = differentElementsPage.getDifferentElements().getCheckBox(properties.getList("checkbox").get(2).toString());
+        CheckBox checkBoxWater =  differentElementsPage.getDifferentElements().getCheckBox(CHECKBOX_TEXT.get(0));
+        CheckBox checkBoxWind = differentElementsPage.getDifferentElements().getCheckBox(CHECKBOX_TEXT.get(2));
 
         softAssertions
                 .assertThat(checkBoxWater)
@@ -67,7 +68,7 @@ public class DifferentElementsTest extends BaseTestClass {
                 .isTrue();
 
         //7. Select radio
-        Radio radio = differentElementsPage.getDifferentElements().getRadio(properties.getList("radio").get(3).toString());
+        Radio radio = differentElementsPage.getDifferentElements().getRadio(RADIO_TEXT.get(3));
         softAssertions
                 .assertThat(radio)
                 .isNotNull();
@@ -77,23 +78,23 @@ public class DifferentElementsTest extends BaseTestClass {
                 .isTrue();
 
         //8. Select in dropdown
-        Select dropdown = differentElementsPage.getDifferentElements().getDropDown(properties.getList("dropdown").get(3).toString());
+        Select dropdown = differentElementsPage.getDifferentElements().getDropDown(DROPDOWN_TEXT.get(3));
         softAssertions
                 .assertThat(dropdown)
                 .isNotNull();
         softAssertions
                 .assertThat(dropdown.getFirstSelectedOption().getText())
-                .isEqualTo(properties.getList("dropdown").get(3).toString());
+                .isEqualTo(DROPDOWN_TEXT.get(3));
 
         //9. Assert that for each checkbox there is an individual log row and value is corresponded to the status of checkbox.
         //   Assert that for radiobutton there is a logList row and value is corresponded to the status of radiobutton.
         //   Assert that for dropdown there is a logList row and value is corresponded to the selected value.
         List<String> expectedLog = new ArrayList<>(
                 List.of(
-                        properties.getString("checkbox.log") + properties.getList("checkbox").get(0).toString(),
-                        properties.getString("checkbox.log") + properties.getList("checkbox").get(2).toString(),
-                        properties.getString("radio.log") + properties.getList("radio").get(3).toString(),
-                        properties.getString("checkbox.log") + properties.getList("checkbox").get(2).toString()
+                        CHECKBOX_LOG + CHECKBOX_TEXT.get(0),
+                        CHECKBOX_LOG + CHECKBOX_TEXT.get(2),
+                        RADIO_LOG + RADIO_TEXT.get(3),
+                        DROPDOWN_LOG + DROPDOWN_TEXT.get(2)
                 ));
 
         expectedLog.forEach(expLog ->
