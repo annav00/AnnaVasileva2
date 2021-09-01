@@ -18,7 +18,6 @@ import io.restassured.specification.ResponseSpecification;
 import org.apache.http.HttpStatus;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;

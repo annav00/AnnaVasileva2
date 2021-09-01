@@ -33,12 +33,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest-core</artifactId>
-            <version>${hamcrest-core.version}</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>${testng.version}</version>
@@ -46,21 +40,9 @@
         </dependency>
 
         <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-            <version>${commons-lang.version}</version>
-        </dependency>
-
-        <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>${gson.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>commons-configuration</groupId>
-            <artifactId>commons-configuration</artifactId>
-            <version>${commons-configuration.version}</version>
         </dependency>
     </dependencies>
 
@@ -94,15 +76,6 @@
                 <configuration>
                     <suiteXmlFiles>
                     </suiteXmlFiles>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>versions-maven-plugin</artifactId>
-                <version>${versions-maven-plugin.version}</version>
-                <configuration>
-                    <generateBackupPoms>false</generateBackupPoms>
                 </configuration>
             </plugin>
         </plugins>
