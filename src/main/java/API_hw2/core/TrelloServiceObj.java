@@ -98,9 +98,15 @@ public class TrelloServiceObj {
                 .prettyPeek();
 
         switch (status) {
-            case (ResponseStatus.GOOD_RESPONSE) -> response.then().assertThat().spec(TrelloServiceObj.goodResponseSpecification());
-            case (ResponseStatus.BAD_RESPONSE) -> response.then().assertThat().spec(TrelloServiceObj.badResponseSpecification());
-            case (ResponseStatus.NOT_FOUND_RESPONSE) -> response.then().assertThat().spec(TrelloServiceObj.notFoundResponse());
+            case (ResponseStatus.GOOD_RESPONSE):
+                response.then().assertThat().spec(TrelloServiceObj.goodResponseSpecification());
+                break;
+            case (ResponseStatus.BAD_RESPONSE):
+                response.then().assertThat().spec(TrelloServiceObj.badResponseSpecification());
+                break;
+            case (ResponseStatus.NOT_FOUND_RESPONSE):
+                response.then().assertThat().spec(TrelloServiceObj.notFoundResponse());
+                break;
         }
 
         return formBoardFromResponse(response);

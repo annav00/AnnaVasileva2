@@ -10,8 +10,8 @@
 
     <properties>
 
-        <maven.compiler.source>15</maven.compiler.source>
-        <maven.compiler.target>15</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
         <rest-assured.version>4.4.0</rest-assured.version>
         <hamcrest-core.version>2.2</hamcrest-core.version>
         <testng.version>7.4.0</testng.version>
@@ -20,7 +20,7 @@
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
         <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
         <versions-maven-plugin.version>2.8.1</versions-maven-plugin.version>
-        <maven-surefire-plugin.suiteXmlFile>testng</maven-surefire-plugin.suiteXmlFile>
+        <maven-surefire-plugin.suiteXmlFile>${project.basedir}/src/test/resources/testng</maven-surefire-plugin.suiteXmlFile>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <commons-configuration.version>1.10</commons-configuration.version>
