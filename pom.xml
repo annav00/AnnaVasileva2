@@ -10,11 +10,10 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>15</maven.compiler.source>
-        <maven.compiler.target>15</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
         <testng.version>7.4.0</testng.version>
         <assertj-core.version>3.20.2</assertj-core.version>
-        <calculator.version>1.0</calculator.version>
         <maven-surefire-plugin.suiteXmlFile>${project.basedir}/src/test/resources/testng</maven-surefire-plugin.suiteXmlFile>
         <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
@@ -24,6 +23,10 @@
         <calculator.version>1.0</calculator.version>
         <aspectj.version>1.9.6</aspectj.version>
         <allure-testng.version>2.13.2</allure-testng.version>
+        <calculator.version>1.0</calculator.version>
+        <commons-configuration.version>1.10</commons-configuration.version>
+        <allure-maven.version>2.10.0</allure-maven.version>
+        <slf4j.version>1.7.32</slf4j.version>
     </properties>
 
 
@@ -65,13 +68,23 @@
         <dependency>
             <groupId>commons-configuration</groupId>
             <artifactId>commons-configuration</artifactId>
-            <version>1.10</version>
+            <version>${commons-configuration.version}</version>
         </dependency>
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-testng</artifactId>
             <version>${allure-testng.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>${slf4j.version}</version>
         </dependency>
     </dependencies>
 
@@ -91,7 +104,7 @@
                 <version>${maven-surefire-plugin.version}</version>
                 <configuration>
                     <suiteXmlFiles>
-                        ${maven-surefire-plugin.suiteXmlFile}/seleniumHW1addSubtractTests.xml
+                        ${maven-surefire-plugin.suiteXmlFile}/seleniumHW4allTests.xml
                     </suiteXmlFiles>
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
@@ -108,7 +121,7 @@
             <plugin>
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-maven</artifactId>
-                <version>2.10.0</version>
+                <version>${allure-maven.version}</version>
             </plugin>
         </plugins>
     </build>
@@ -124,7 +137,7 @@
         </profile>
 
         <profile>
-            <id>Selenium_hw1_multiplyDivisiont</id>
+            <id>Selenium_hw1_multiplyDivision</id>
             <properties>
                 <maven-surefire-plugin.suiteXmlFile>
                     ${maven-surefire-plugin.suiteXmlFile}/seleniumHW1multDivisionTests.xml
@@ -158,6 +171,15 @@
                 </maven-surefire-plugin.suiteXmlFile>
             </properties>
         </profile>
+
+        <profile>
+            <id>Selenium_HW4_all</id>
+            <properties>
+                <maven-surefire-plugin.suiteXmlFile>
+                    ${maven-surefire-plugin.suiteXmlFile}/seleniumHW4allTests.xml
+                </maven-surefire-plugin.suiteXmlFile>
+            </properties>
+        </profile>
     </profiles>
 
     <reporting>
@@ -166,7 +188,7 @@
             <plugin>
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-maven</artifactId>
-                <version>2.10.0</version>
+                <version>${allure-maven.version}</version>
                 <configuration>
                     <reportVersion>${allure-testng.version}</reportVersion>
                 </configuration>
