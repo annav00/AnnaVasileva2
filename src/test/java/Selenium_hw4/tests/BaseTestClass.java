@@ -19,7 +19,7 @@ public class BaseTestClass {
     protected ActionStep actionStep;
     protected AssertionStep assertionStep;
 
-    @BeforeClass
+    @BeforeClass (description = "Set up WebDriver. Create properties, actionStep, assertionStep objects")
     public void initialization() throws ConfigurationException {
         WebDriverManager.chromedriver().setup();
         webDriver = new ChromeDriver();
