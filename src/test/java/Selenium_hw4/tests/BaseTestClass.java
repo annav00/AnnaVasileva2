@@ -3,6 +3,7 @@ package Selenium_hw4.tests;
 import Selenium_hw4.steps.ActionStep;
 import Selenium_hw4.steps.AssertionStep;
 import org.apache.commons.configuration.PropertiesConfiguration;
+import org.testng.ITestContext;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
@@ -20,7 +21,7 @@ public class BaseTestClass {
     protected AssertionStep assertionStep;
 
     @BeforeClass (description = "Set up WebDriver. Create properties, actionStep, assertionStep objects")
-    public void initialization() throws ConfigurationException {
+    public void initialization(ITestContext testContext) throws ConfigurationException {
         WebDriverManager.chromedriver().setup();
         webDriver = new ChromeDriver();
         webDriver.manage().window().maximize();
@@ -31,6 +32,7 @@ public class BaseTestClass {
 
         actionStep = new ActionStep(webDriver);
         assertionStep = new AssertionStep(webDriver);
+        testContext.setAttribute("webDriver", webDriver);
     }
 
     @AfterClass
