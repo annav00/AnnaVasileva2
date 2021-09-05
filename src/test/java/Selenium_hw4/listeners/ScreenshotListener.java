@@ -1,5 +1,6 @@
 package Selenium_hw4.listeners;
 
+import io.qameta.allure.Attachment;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -16,6 +17,7 @@ public class ScreenshotListener implements ITestListener {
         }
     }
 
+    @Attachment(type = "image/png", fileExtension = ".png")
     private byte[] attachScreenShot(WebDriver webDriver) {
         return ((TakesScreenshot) webDriver).getScreenshotAs(OutputType.BYTES);
     }
