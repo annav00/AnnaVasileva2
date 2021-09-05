@@ -26,18 +26,18 @@ public class ElementExistTestWithFail extends BaseTestClass {
         //3. Perform login
         actionStep.performLogin(properties.getString("login"), properties.getString("password"));
 
-        //4. Assert Username is loggined
-        assertionStep.usernameIsLoggined(EXPECTED_USER_NAME);
+        //4. Assert Username is logged
+        assertionStep.usernameIsLogged(EXPECTED_USER_NAME);
 
-        //5. Assert that there are 4 items on the header section are displayed and they have proper texts
+        //5. Assert that there are 4 items on the header section are displayed, and they have proper texts
         assertionStep.checkNumberOfItemsOnHeader(TOOLBAR_TEXT.size());
         assertionStep.checkNameItemsOnHeader(TOOLBAR_TEXT);
 
-        //6. Assert that there are 4 images on the Index Page and they are displayed
+        //6. Assert that there are 4 images on the Index Page, and they are displayed
         assertionStep.checkNumberOfBenefitImages(BENEFIT_INDEX_PAGE_IMAGES_SIZE);
         assertionStep.checkIfDisplayedBenefitImages();
 
-        //7. Assert that there are 4 texts on the Index Page under icons and they have proper text
+        //7. Assert that there are 4 texts on the Index Page under icons, and they have proper text
         assertionStep.checkNumberOfBenefitText(BENEFIT_INDEX_PAGE_TEXT.size());
         assertionStep.checkBenefitText(BENEFIT_INDEX_PAGE_TEXT);
 
@@ -53,7 +53,7 @@ public class ElementExistTestWithFail extends BaseTestClass {
         //10. Switch to original window back
         actionStep.switchToOriginalWindow();
 
-        //11. Assert that there are 5 items in the Left Section are displayed and they have proper text
+        //11. Assert that there are 5 items in the Left Section are displayed, and they have proper text
         assertionStep.checkNumberOfItemsInLeftSection(NAVIGATIONBAR_TEXT.size());
         assertionStep.checkTextInItemsInLeftSection(NAVIGATIONBAR_TEXT);
     }

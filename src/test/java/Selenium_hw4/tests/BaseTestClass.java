@@ -28,8 +28,6 @@ public class BaseTestClass {
         webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
         properties =  new PropertiesConfiguration(pathToProperties);
-        //softAssertions = new SoftAssertions();
-
         actionStep = new ActionStep(webDriver);
         assertionStep = new AssertionStep(webDriver);
         testContext.setAttribute("webDriver", webDriver);

@@ -18,7 +18,7 @@ public class ActionStep extends AbstractStep {
         homePage.open(URL);
     }
 
-    @Step("Perform login: {login} : {password}")
+    @Step("Perform login: {login}; password : {password}")
     public void performLogin(String login, String password) {
         homePage.getHeader().signIn(login, password);
     }
@@ -38,20 +38,20 @@ public class ActionStep extends AbstractStep {
         differentElementsPage = homePage.getHeader().clickDifferentElement();
     }
 
-    @Step("Select checkboxes: '{checkBoxText}'")
+    @Step("Select checkboxes: \"{checkBoxText}\"")
     public void selectCheckBox(String checkBoxText) {
         CheckBox checkBox =  differentElementsPage.getDifferentElements().getCheckBox(checkBoxText);
         checkBox.click();
     }
 
-    @Step("Select radio: '{radioText}'")
+    @Step("Select radio: \"{radioText}\"")
     public void selectRadio(String radioText) {
         Radio radio = differentElementsPage.getDifferentElements().getRadio(radioText);
         radio.click();
     }
 
-    @Step("Select in dropdown: {dropdownText}")
+    @Step("Select in dropdown: \"{dropdownText}\"")
     public void selectInDropDown(String dropdownText) {
-        Select dropdown = differentElementsPage.getDifferentElements().getDropDown(dropdownText);
+       differentElementsPage.getDifferentElements().getDropDown(dropdownText);
     }
 }

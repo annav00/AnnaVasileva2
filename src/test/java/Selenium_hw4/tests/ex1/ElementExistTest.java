@@ -26,8 +26,8 @@ public class ElementExistTest extends BaseTestClass {
         //3. Perform login
         actionStep.performLogin(properties.getString("login"), properties.getString("password"));
 
-        //4. Assert Username is loggined
-        assertionStep.usernameIsLoggined(EXPECTED_USER_NAME);
+        //4. Assert Username is logged
+        assertionStep.usernameIsLogged(EXPECTED_USER_NAME);
 
         //5. Assert that there are 4 items on the header section are displayed and they have proper texts
         assertionStep.checkNumberOfItemsOnHeader(TOOLBAR_TEXT.size());

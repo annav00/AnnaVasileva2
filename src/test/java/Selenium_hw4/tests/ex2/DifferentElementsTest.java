@@ -30,8 +30,8 @@ public class DifferentElementsTest extends BaseTestClass {
         //3. Perform login
         actionStep.performLogin(properties.getString("login"), properties.getString("password"));
 
-        //4. Assert Username is loggined
-        assertionStep.usernameIsLoggined(EXPECTED_USER_NAME);
+        //4. Assert Username is logged
+        assertionStep.usernameIsLogged(EXPECTED_USER_NAME);
 
 
         //5. Open through the header menu Service -> Different Elements Page
