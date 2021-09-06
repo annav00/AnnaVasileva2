@@ -125,7 +125,7 @@
                 <version>${maven-surefire-plugin.version}</version>
                 <configuration>
                     <suiteXmlFiles>
-                        ${maven-surefire-plugin.suiteXmlFile}/seleniumHW1addSubtractTests.xml
+                        ${maven-surefire-plugin.suiteXmlFile}/APIHW2Tests.xml
                     </suiteXmlFiles>
                 </configuration>
             </plugin>
