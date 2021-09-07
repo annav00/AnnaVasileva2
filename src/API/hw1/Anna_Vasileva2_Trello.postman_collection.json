@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "2825f518-b99c-4395-b2b7-3f2bcf8e493b",
+		"_postman_id": "9b132617-e814-4ca0-9cde-9fa962220411",
 		"name": "Trello",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -257,6 +257,14 @@
 						"exec": [
 							"pm.test(\"Statuse code is 400\", function(){\r",
 							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Request contains text invalid id\", function(){\r",
+							"   pm.response.to.have.body(\"invalid id\")\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Request is a Not JSON-file\", function(){\r",
+							"   pm.response.to.not.be.json;\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -303,7 +311,9 @@
 							"   pm.expect(data.id).to.not.eql(pm.collectionVariables.get(\"cardId\"));\r",
 							"});\r",
 							"\r",
-							""
+							"pm.test(\"Request is a JSON-file\", function(){\r",
+							"   pm.response.to.be.json;\r",
+							"});"
 						],
 						"type": "text/javascript"
 					}
@@ -337,7 +347,13 @@
 							"    pm.response.to.have.status(400);\r",
 							"});\r",
 							"\r",
-							""
+							"pm.test(\"Request contains text invalid id\", function(){\r",
+							"   pm.response.to.have.body(\"invalid id\")\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Request is a Not JSON-file\", function(){\r",
+							"   pm.response.to.not.be.json;\r",
+							"});"
 						],
 						"type": "text/javascript"
 					}
@@ -424,6 +440,10 @@
 							"pm.test(\"Answer does not contain boardId\", function(){\r",
 							"   const data = pm.response.json();\r",
 							"   pm.expect(data.id).to.not.eql(pm.collectionVariables.get(\"boardId\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Request is a JSON-file\", function(){\r",
+							"   pm.response.to.be.json;\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -456,6 +476,14 @@
 						"exec": [
 							"pm.test(\"Statuse code is 404\", function(){\r",
 							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Request contains text invalid id\", function(){\r",
+							"   pm.response.to.have.body(\"invalid id\")\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Request is a Not JSON-file\", function(){\r",
+							"   pm.response.to.not.be.json;\r",
 							"});\r",
 							"\r",
 							"pm.collectionVariables.clear();\r",
@@ -556,18 +584,15 @@
 	"variable": [
 		{
 			"key": "TrelloAPIKey",
-			"value": "05d638746f0f484a63b83713772fac99",
-			"disabled": true
+			"value": "05d638746f0f484a63b83713772fac99"
 		},
 		{
 			"key": "TrelloToken",
-			"value": "8380036c3f0f4c82a99e669bd763719cb9df855bfd5991d6893694223f3223c4",
-			"disabled": true
+			"value": "8380036c3f0f4c82a99e669bd763719cb9df855bfd5991d6893694223f3223c4"
 		},
 		{
 			"key": "memberId",
-			"value": "autotestaccount",
-			"disabled": true
+			"value": "autotestaccount"
 		}
 	]
 }
