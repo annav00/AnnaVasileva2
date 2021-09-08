@@ -17,14 +17,10 @@ import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 import org.apache.http.HttpStatus;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
-
-import java.util.Properties;
 
 import static org.hamcrest.Matchers.*;
 
@@ -35,19 +31,15 @@ public class TrelloServiceObj {
 
     private final Map<String, String> parameters;
 
-    private final String pathToProperties = "src/main/resources/API_hw2/credentials.properties";
-    private static Properties properties = new Properties();
+    private static final String PATH_TO_PROPERTIES = "src/main/resources/API_hw2/credentials.properties";
+    private static LoadingProperties properties;
 
     private TrelloServiceObj (Map<String, String> parameters, Method method) {
         this.parameters = parameters;
         this.requestMethod = method;
 
-        try {
-            FileInputStream file = new FileInputStream(pathToProperties);
-            properties.load(file);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        properties = new LoadingProperties();
+        properties.loadProperties(PATH_TO_PROPERTIES);
     }
 
     public static ApiRequestBuilder requestBuilder() {
@@ -82,8 +74,8 @@ public class TrelloServiceObj {
         return new RequestSpecBuilder()
                 .setRelaxedHTTPSValidation()
                 .setBaseUri(URI.create(URLConstant.BASE.getURLConstant()))
-                .addParam("key", properties.getProperty("key"))
-                .addParam("token",properties.getProperty("token"))
+                .addParam("key", properties.getProperties().getProperty("key"))
+                .addParam("token",properties.getProperties().getProperty("token"))
                 .build();
     }
 
