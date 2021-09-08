@@ -9,7 +9,6 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <rest-assured.version>4.4.0</rest-assured.version>
@@ -24,10 +23,13 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <commons-configuration.version>1.10</commons-configuration.version>
         <assertj-core.version>3.20.2</assertj-core.version>
+        <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
         <webdrivermanager.version>4.4.3</webdrivermanager.version>
         <selenium-java.version>3.141.59</selenium-java.version>
         <htmlelements-java.version>1.20.0</htmlelements-java.version>
         <calculator.version>1.0</calculator.version>
+        <aspectj.version>1.9.6</aspectj.version>
+        <allure-testng.version>2.13.2</allure-testng.version>
     </properties>
 
     <dependencies>
@@ -90,8 +92,8 @@
         </dependency>
         <dependency>
             <groupId>io.qameta.allure</groupId>
-            <artifactId>allure-java-commons</artifactId>
-            <version>2.13.2</version>
+            <artifactId>allure-testng</artifactId>
+            <version>${allure-testng.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -121,13 +123,36 @@
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <release>11</release>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-plugin.version}</version>
                 <configuration>
                     <suiteXmlFiles>
                         ${maven-surefire-plugin.suiteXmlFile}/APIHW2Tests.xml
                     </suiteXmlFiles>
+                    <argLine>
+                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                    </argLine>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.aspectj</groupId>
+                        <artifactId>aspectjweaver</artifactId>
+                        <version>${aspectj.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>2.10.0</version>
             </plugin>
         </plugins>
     </build>
@@ -159,7 +184,7 @@
                 </maven-surefire-plugin.suiteXmlFile>
             </properties>
         </profile>
-      
+
         <profile>
             <id>Selenium_hw2_all</id>
             <properties>
@@ -168,7 +193,7 @@
                 </maven-surefire-plugin.suiteXmlFile>
             </properties>
         </profile>
-      
+
         <profile>
             <id>Selenium_hw3_all</id>
             <properties>
@@ -187,4 +212,18 @@
             </properties>
         </profile>
     </profiles>
+
+    <reporting>
+        <excludeDefaults>true</excludeDefaults>
+        <plugins>
+            <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>2.10.0</version>
+                <configuration>
+                    <reportVersion>${allure-testng.version}</reportVersion>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
 </project>
