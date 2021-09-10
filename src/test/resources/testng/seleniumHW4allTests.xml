@@ -1,0 +1,13 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="allCheckSuite" verbose="1" >
+    <test name="Element exist Test">
+        <packages>
+            <package name="Selenium_hw4.tests.ex1"/>
+        </packages>
+    </test>
+    <test name="Different Elements Test">
+        <packages>
+            <package name="Selenium_hw4.tests.ex2"/>
+        </packages>
+    </test>
+</suite>
