@@ -36,7 +36,6 @@ public class ElementExistTest extends BaseTestClass {
         softAssertions
                 .assertThat(homePage.getHeader().getHeaderElementsText())
                 .hasSize(TOOLBAR_TEXT.size());
-//                .hasSize(properties.getList("toolbar").size());
 
         softAssertions
                 .assertThat(homePage.getHeader().getHeaderElementsText())
