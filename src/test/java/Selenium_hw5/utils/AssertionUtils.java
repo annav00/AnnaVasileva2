@@ -11,5 +11,6 @@ public class AssertionUtils {
         SoftAssertions softAssertions = new SoftAssertions();
         softAssertions.assertThat(elements.size()).isEqualTo(expectedSize);
         elements.forEach(element -> softAssertions.assertThat(element.isDisplayed()).isTrue());
+        softAssertions.assertAll();
     }
 }
