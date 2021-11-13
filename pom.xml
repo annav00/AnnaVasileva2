@@ -35,7 +35,9 @@
         <aspectj.version>1.9.6</aspectj.version>      
         <allure-testng.version>2.13.2</allure-testng.version>
         <allure-maven.version>2.10.0</allure-maven.version>
+        <allure.version>2.14.0</allure.version>
         <slf4j.version>1.7.32</slf4j.version>
+        <cucumber.version>6.11.0</cucumber.version>
     </properties>
 
     <dependencies>
@@ -100,7 +102,7 @@
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-testng</artifactId>
-            <version>${allure-testng.version}</version>
+            <version>${allure.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -114,10 +116,19 @@
             <version>${slf4j.version}</version>
         </dependency>
         <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-testng</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
+        <dependency>
             <groupId>io.qameta.allure</groupId>
-            <artifactId>allure-java-commons</artifactId>
-            <version>2.13.2</version>
-            <scope>test</scope>
+            <artifactId>allure-cucumber6-jvm</artifactId>
+            <version>${allure.version}</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -161,7 +172,7 @@
                 <version>${maven-surefire-plugin.version}</version>
                 <configuration>
                     <suiteXmlFiles>
-                        ${maven-surefire-plugin.suiteXmlFile}/jdiHW1allTests.xml
+                        ${maven-surefire-plugin.suiteXmlFile}/seleniumHW5allTests.xml
                     </suiteXmlFiles>
                 </configuration>
 
@@ -264,7 +275,7 @@
                 <artifactId>allure-maven</artifactId>
                 <version>${allure-maven.version}</version>
                 <configuration>
-                    <reportVersion>${allure-testng.version}</reportVersion>
+                    <reportVersion>${allure.version}</reportVersion>
                 </configuration>
             </plugin>
         </plugins>
